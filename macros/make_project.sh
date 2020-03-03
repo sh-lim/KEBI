@@ -37,8 +37,10 @@ else
 
     mkdir ${1}/task
     cp ${KEBIPATH}/dummy_project/task/LinkDef.h    ${1}/task/LinkDef.h
-    cp ${KEBIPATH}/dummy_project/task/DUMMYTask.cc ${1}/task/${2}DoSomethingTask.cc
-    cp ${KEBIPATH}/dummy_project/task/DUMMYTask.hh ${1}/task/${2}DoSomethingTask.hh
+ #   cp ${KEBIPATH}/dummy_project/task/DUMMYTask.cc ${1}/task/${2}DoSomethingTask.cc
+ #   cp ${KEBIPATH}/dummy_project/task/DUMMYTask.hh ${1}/task/${2}DoSomethingTask.hh
+    cp ${KEBIPATH}/dummy_project/task/DUMMYTask.cc ${1}/task/${2}Task.cc
+    cp ${KEBIPATH}/dummy_project/task/DUMMYTask.hh ${1}/task/${2}Task.hh
 
 
     mkdir ${1}/macros
@@ -48,21 +50,23 @@ else
     cp ${KEBIPATH}/dummy_project/macros/dummy.gen      ${1}/macros/${1}.gen
     cp ${KEBIPATH}/dummy_project/macros/run_geant4.mac ${1}/macros/
     cp ${KEBIPATH}/dummy_project/macros/vis.mac        ${1}/macros/
-    cp ${KEBIPATH}/dummy_project/macros/doSomething.C  ${1}/macros/
+#    cp ${KEBIPATH}/dummy_project/macros/doSomething.C  ${1}/macros/
 
 
-    sed -i '' s/DUMMY/${2}/g ${1}/CMakeLists.txt
-    sed -i '' s/DUMMY/${2}/g ${1}/geant4/*
-    sed -i '' s/DUMMY/${2}/g ${1}/detector/*
-    sed -i '' s/DUMMY/${2}/g ${1}/task/*
-    sed -i '' s/DUMMY/${2}/g ${1}/macros/*
+#    sed -i s/dummy/${2}/g ${1}/CMakeLists.txt
+#    sed -i s/DUMMY/${2}/g ${1}/CMakeLists.txt
+    sed -i s/DUMMY/${2}/g ${1}/geant4/*
+    sed -i s/DUMMY/${2}/g ${1}/detector/*
+    sed -i s/DUMMY/${2}/g ${1}/task/*
+    sed -i s/DUMMY/${2}/g ${1}/macros/*
 
-    sed -i '' s/DUMMYPROJECT/${1}/g ${1}/CMakeLists.txt
-    sed -i '' s/DUMMYPROJECT/${1}/g ${1}/geant4/*
-    sed -i '' s/DUMMYPROJECT/${1}/g ${1}/detector/*
-    sed -i '' s/DUMMYPROJECT/${1}/g ${1}/task/*
-    sed -i '' s/DUMMYPROJECT/${1}/g ${1}/macros/*
+    sed -i s/dummy/${1}/g ${1}/CMakeLists.txt
 
-    sed -i '' s/dummy/${1}/g ${1}/macros/*
+    sed -i s/DUMMYPROJECT/${1}/g ${1}/geant4/*
+    sed -i s/DUMMYPROJECT/${1}/g ${1}/detector/*
+    sed -i s/DUMMYPROJECT/${1}/g ${1}/task/*
+    sed -i s/DUMMYPROJECT/${1}/g ${1}/macros/*
+
+    sed -i s/dummy/${1}/g ${1}/macros/*
   fi
 fi

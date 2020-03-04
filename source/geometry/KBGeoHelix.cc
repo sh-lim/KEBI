@@ -16,6 +16,8 @@ KBGeoHelix::KBGeoHelix(Double_t i, Double_t j, Double_t r, Double_t s, Double_t 
 
 void KBGeoHelix::Print(Option_t *option) const
 {
+  if (option) {
+  }
 }
 
 TVector3 KBGeoHelix::GetCenter() const { return KBVector3(fA,fI,fJ,.5*(fH*fS+fK + fT*fS+fK)).GetXYZ(); }
@@ -41,7 +43,7 @@ Double_t KBGeoHelix::GetRMST()       const { return fRMST; }
 TVector3 KBGeoHelix::GetRandomPoint(Double_t sigma)
 {
   if (sigma > 0) {
-    Double_t val;
+    Double_t val = 0.0;
     if (fH > fT) val = gRandom -> Uniform(fH-fT) + fT;
     if (fT > fH) val = gRandom -> Uniform(fT-fH) + fH;
 
@@ -52,7 +54,7 @@ TVector3 KBGeoHelix::GetRandomPoint(Double_t sigma)
     return pos;
   }
 
-  Double_t val;
+  Double_t val = 0.0;
   if (fH > fT) val = gRandom -> Uniform(fH-fT) + fT;
   if (fT > fH) val = gRandom -> Uniform(fT-fH) + fH;
   return PositionAtAlpha(val);

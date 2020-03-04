@@ -265,6 +265,9 @@ Int_t KBParameterContainer::GetNumInputFiles() { return fNumInputFiles; }
 
 void KBParameterContainer::Print(Option_t *option) const
 {
+  if (option) {
+  }
+
   TIter iterator(this);
 
   TObject *obj;

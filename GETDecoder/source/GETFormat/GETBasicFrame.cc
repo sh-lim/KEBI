@@ -21,7 +21,7 @@ void GETBasicFrame::Read(ifstream &stream) {
 
   if (GetFrameType() == GETFRAMEBASICTYPE1) {
     uint8_t data[4];
-    for (Int_t iItem = 0; iItem < GetNItems(); iItem++) {
+    for (UInt_t iItem = 0; iItem < GetNItems(); iItem++) {
       stream.read((Char_t *) data, GetItemSize());
 
       UInt_t item = CorrectEndianness(data, 4);
@@ -35,7 +35,7 @@ void GETBasicFrame::Read(ifstream &stream) {
     }
   } else if (GetFrameType() == GETFRAMEBASICTYPE2) {
     uint8_t data[2];
-    for (Int_t iItem = 0; iItem < GetNItems(); iItem++) {
+    for (UInt_t iItem = 0; iItem < GetNItems(); iItem++) {
       stream.read((Char_t *) data, GetItemSize());
 
       UShort_t item = CorrectEndianness(data, 2);

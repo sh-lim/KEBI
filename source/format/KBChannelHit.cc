@@ -12,7 +12,7 @@ KBChannelHit::KBChannelHit(Int_t id, Double_t t, Double_t a)
 {
 }
 
-void KBChannelHit::Clear(Option_t *option)
+void KBChannelHit::Clear()
 {
   fID = -1;
   fTDC = -999;

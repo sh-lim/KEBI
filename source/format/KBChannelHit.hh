@@ -11,7 +11,7 @@ class KBChannelHit : public TObject
     KBChannelHit(Int_t id, Double_t t, Double_t a);
     virtual ~KBChannelHit() {}
 
-    virtual void Clear(Option_t *option = "");
+    virtual void Clear();
 
     void SetID(Int_t val);
     void SetTDC(Double_t val);

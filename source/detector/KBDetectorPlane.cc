@@ -25,6 +25,8 @@ void KBDetectorPlane::Clear(Option_t *)
 
 void KBDetectorPlane::Print(Option_t *option) const
 {
+  if (option) {
+  }
   kb_info << fName << " plane-" << fPlaneID << " containing " << fChannelArray -> GetEntries() << " channels" << endl;
 }
 

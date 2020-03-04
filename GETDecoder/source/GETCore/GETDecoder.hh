@@ -57,7 +57,7 @@ class GETDecoder
     //! Add the data file to the list of rawdata.
     Bool_t AddData(TString filename);
     //! Set the data file to the class.
-    Bool_t SetData(Int_t index);
+    Bool_t SetData(UInt_t index);
     void SetDiscontinuousData(Bool_t value = kTRUE);    ///<
     //! Search the next file and set it if exists. Returns 1 if successful.
     Bool_t NextData();
@@ -68,7 +68,7 @@ class GETDecoder
     //! Return the number of data added in the list.
     Int_t GetNumData();
     //! Return the filename of data at index
-    TString GetDataName(Int_t index);
+    TString GetDataName(UInt_t index);
 
     //! Return the number of time buckets.
     Int_t GetNumTbs();

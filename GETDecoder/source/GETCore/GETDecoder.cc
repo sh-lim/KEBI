@@ -33,13 +33,21 @@
 
 //#define DEBUG
 
-ClassImp(GETDecoder);
+ClassImp(GETDecoder)
 
-GETDecoder::GETDecoder()
-:fFrameInfoArray(NULL), fCoboFrameInfoArray(NULL), fFrameInfo(NULL), fCoboFrameInfo(NULL),
- fHeaderBase(NULL), fBasicFrameHeader(NULL), fLayerHeader(NULL),
- fTopologyFrame(NULL), fBasicFrame(NULL), fCoboFrame(NULL), fLayeredFrame(NULL),
- fMutantFrame(NULL)
+GETDecoder::GETDecoder():
+  fHeaderBase(NULL),
+  fBasicFrameHeader(NULL),
+  fLayerHeader(NULL),
+  fTopologyFrame(NULL),
+  fBasicFrame(NULL),
+  fCoboFrame(NULL),
+  fLayeredFrame(NULL),
+  fMutantFrame(NULL),
+  fFrameInfoArray(NULL),
+  fCoboFrameInfoArray(NULL),
+  fFrameInfo(NULL),
+  fCoboFrameInfo(NULL)
 {
   /**
     * If you use this constructor, you have to add the rawdata using
@@ -49,11 +57,19 @@ GETDecoder::GETDecoder()
   Initialize();
 }
 
-GETDecoder::GETDecoder(TString filename)
-:fFrameInfoArray(NULL), fCoboFrameInfoArray(NULL), fFrameInfo(NULL), fCoboFrameInfo(NULL),
- fHeaderBase(NULL), fBasicFrameHeader(NULL), fLayerHeader(NULL),
- fTopologyFrame(NULL), fBasicFrame(NULL), fCoboFrame(NULL), fLayeredFrame(NULL),
- fMutantFrame(NULL)
+GETDecoder::GETDecoder(TString filename):
+  fHeaderBase(NULL),
+  fBasicFrameHeader(NULL),
+  fLayerHeader(NULL),
+  fTopologyFrame(NULL),
+  fBasicFrame(NULL),
+  fCoboFrame(NULL),
+  fLayeredFrame(NULL),
+  fMutantFrame(NULL),
+  fFrameInfoArray(NULL),
+  fCoboFrameInfoArray(NULL),
+  fFrameInfo(NULL),
+  fCoboFrameInfo(NULL)
 {
   /**
     * Automatically add the rawdata file to the list
@@ -174,7 +190,7 @@ Bool_t GETDecoder::AddData(TString filename)
   TString nextData = GETFileChecker::CheckFile(filename);
   if (!nextData.EqualTo("")) {
     Bool_t isExist = 0;
-    for (Int_t iIdx = 0; iIdx < fDataList.size(); iIdx++) {
+    for (UInt_t iIdx = 0; iIdx < fDataList.size(); iIdx++) {
       if (fDataList.at(0).EqualTo(nextData)) {
         std::cout << "== [GETDecoder] The file already exists in the list!" << std::endl;
         isExist = 1;
@@ -191,7 +207,7 @@ Bool_t GETDecoder::AddData(TString filename)
   return kFALSE;
 }
 
-Bool_t GETDecoder::SetData(Int_t index)
+Bool_t GETDecoder::SetData(UInt_t index)
 {
   if (!fIsContinuousData) {
 
@@ -267,7 +283,7 @@ Bool_t GETDecoder::SetData(Int_t index)
       fTopologyFrame -> Read(fData);
   }
 
-  fCurrentDataID = index;
+  fCurrentDataID = int(index);
 
   return kTRUE;
 }
@@ -279,8 +295,8 @@ void GETDecoder::SetPositivePolarity(Bool_t value) { fIsPositivePolarity = value
 void GETDecoder::ShowList()
 {
   std::cout << "== [GETDecoder] Index Data file" << std::endl;
-  for (Int_t iItem = 0; iItem < fDataList.size(); iItem++) {
-    if (iItem == fCurrentDataID)
+  for (UInt_t iItem = 0; iItem < fDataList.size(); iItem++) {
+    if (int(iItem) == fCurrentDataID)
       std::cout << " *" << std::setw(6);
     else
       std::cout << std::setw(8);
@@ -291,7 +307,7 @@ void GETDecoder::ShowList()
 
 Int_t GETDecoder::GetNumData() { return fDataList.size(); }
 
-TString GETDecoder::GetDataName(Int_t index)
+TString GETDecoder::GetDataName(UInt_t index)
 {
   if (index >= fDataList.size()) {
     std::cout << "== [GETDecoder] Size of the list is " << fDataList.size() << "!" << std::endl;
@@ -350,7 +366,7 @@ GETBasicFrame *GETDecoder::GetBasicFrame(Int_t frameID)
       if (fFrameInfoIdx == fTargetFrameInfoIdx) {
         BackupCurrentState();
 
-        if (fFrameInfo -> GetDataID() != fCurrentDataID)
+        if (int(fFrameInfo -> GetDataID()) != fCurrentDataID)
           SetData(fFrameInfo -> GetDataID());
    
         fData.seekg(fFrameInfo -> GetStartByte());
@@ -420,8 +436,8 @@ GETCoboFrame *GETDecoder::GetCoboFrame(Int_t frameID)
 
           fCoboFrameInfo = (GETFrameInfo *) fCoboFrameInfoArray -> ConstructedAt(fCoboFrameInfoIdx);
 
-          for (Int_t iFrame = 0; iFrame < fTopologyFrame -> GetAsadMask().count(); iFrame++) {
-            if (fCoboFrameInfo -> GetDataID() != fCurrentDataID)
+          for (UInt_t iFrame = 0; iFrame < fTopologyFrame -> GetAsadMask().count(); iFrame++) {
+            if (int(fCoboFrameInfo -> GetDataID()) != fCurrentDataID)
               SetData(fCoboFrameInfo -> GetDataID());
 
             fData.seekg(fCoboFrameInfo -> GetStartByte());
@@ -511,7 +527,7 @@ GETLayeredFrame *GETDecoder::GetLayeredFrame(Int_t frameID)
       if (fFrameInfoIdx == fTargetFrameInfoIdx) {
         BackupCurrentState();
 
-        if (fFrameInfo -> GetDataID() != fCurrentDataID)
+        if (int(fFrameInfo -> GetDataID()) != fCurrentDataID)
           SetData(fFrameInfo -> GetDataID());
 
         fData.seekg(fFrameInfo -> GetStartByte());
@@ -584,7 +600,7 @@ GETMutantFrame *GETDecoder::GetMutantFrame(Int_t frameID)
       if (fFrameInfoIdx == fTargetFrameInfoIdx) {
         BackupCurrentState();
 
-        if (fFrameInfo -> GetDataID() != fCurrentDataID)
+        if (int(fFrameInfo -> GetDataID()) != fCurrentDataID)
           SetData(fFrameInfo -> GetDataID());
    
         fData.seekg(fFrameInfo -> GetStartByte());
@@ -695,7 +711,7 @@ void GETDecoder::WriteFrame()
     case kCobo:
       fCoboFrameInfo = (GETFrameInfo *) fCoboFrameInfoArray -> At(fTargetFrameInfoIdx);
       do {
-        if (fCurrentDataID != fCoboFrameInfo -> GetDataID())
+        if (fCurrentDataID != int(fCoboFrameInfo -> GetDataID()))
           SetData(fCoboFrameInfo -> GetDataID());
 
         ULong64_t frameSize = fCoboFrameInfo -> GetEndByte() - fCoboFrameInfo -> GetStartByte();
@@ -709,7 +725,7 @@ void GETDecoder::WriteFrame()
     default:
       fFrameInfo = (GETFrameInfo *) fFrameInfoArray -> At(fTargetFrameInfoIdx);
 
-      if (fCurrentDataID != fCoboFrameInfo -> GetDataID())
+      if (fCurrentDataID != int(fCoboFrameInfo -> GetDataID()))
         SetData(fCoboFrameInfo -> GetDataID());
 
       ULong64_t frameSize = fFrameInfo -> GetEndByte() - fFrameInfo -> GetStartByte();
@@ -849,7 +865,7 @@ void GETDecoder::LoadMetaData(TString filename) {
 
   fFrameInfoArray -> Clear("C");
   UInt_t numEntries = metaTree -> GetEntries();
-  for (Int_t iEntry = 0; iEntry < numEntries; iEntry++) {
+  for (UInt_t iEntry = 0; iEntry < numEntries; iEntry++) {
     metaTree -> GetEntry(iEntry);
     fFrameInfo = (GETFrameInfo *) fFrameInfoArray -> ConstructedAt(iEntry);
     fFrameInfo -> Clear();

@@ -38,7 +38,7 @@
 #include <iostream>
 #include <ctime>
 
-ClassImp(KBRun);
+ClassImp(KBRun)
 
 KBRun* KBRun::fInstance = nullptr;
 
@@ -718,7 +718,9 @@ void KBRun::Run()
     fOutputFile -> Close();
     TString linkName = TString(KEBI_PATH) + "/data/LAST_OUTPUT";
     unlink(linkName.Data());
-    symlink(fOutputFileName.Data(), linkName.Data());
+    if (symlink(fOutputFileName.Data(), linkName.Data())) {
+      kb_warning << "Cannot make a symbolic link" << endl;
+    }
   }
 
   CheckOut();
@@ -749,7 +751,9 @@ void KBRun::SignalInterrupt()
     fOutputFile -> Close();
     TString linkName = TString(KEBI_PATH) + "/data/LAST_OUTPUT";
     unlink(linkName.Data());
-    symlink(fOutputFileName.Data(), linkName.Data());
+    if (symlink(fOutputFileName.Data(), linkName.Data())) {
+      kb_warning << "Cannot make a symbolic link" << endl;
+    }
   }
 
   CheckOut();

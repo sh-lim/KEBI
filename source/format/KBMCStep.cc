@@ -39,7 +39,7 @@ void KBMCStep::Print(Option_t *option) const
       << setw(12) << fEdep << endl;
 }
 
-void KBMCStep::Clear(Option_t *option) {
+void KBMCStep::Clear() {
   fTrackID = -1;
   fX = -999;
   fY = -999;
@@ -90,6 +90,8 @@ TEveElement *KBMCStep::CreateEveElement()
 
 void KBMCStep::SetEveElement(TEveElement *, Double_t scale)
 {
+  if (scale>0) {
+  }
 }
 
 void KBMCStep::AddToEveSet(TEveElement *eveSet, Double_t scale)

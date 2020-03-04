@@ -694,7 +694,7 @@ bool KBHitList::Subtract(Double_t x, Double_t y, Double_t z, Double_t w)
 vector<KBHit*> *KBHitList::GetHitArray() { return &fHitArray; }
 vector<Int_t> *KBHitList::GetHitIDArray() { return &fHitIDArray; }
 
-Int_t KBHitList::GetNumHits() const { return fN; };
+Int_t KBHitList::GetNumHits() const { return fN; }
 KBHit *KBHitList::GetHit(Int_t idx) const { return fHitArray.at(idx); }
 Int_t KBHitList::GetHitID(Int_t idx) const { return fHitIDArray.at(idx); }
 

@@ -77,7 +77,7 @@ TVector3 KBExtrapolatedTrack::ExtrapolateTo(TVector3 pos) const
 
   Int_t idx2 = 0;
   TVector3 pos2;
-  Double_t dist2 = DBL_MAX;
+  //Double_t dist2 = DBL_MAX;
 
   Int_t numPoints = fPoints.size();
 
@@ -102,13 +102,13 @@ TVector3 KBExtrapolatedTrack::ExtrapolateTo(TVector3 pos) const
   if (idx1==0) {
     idx2 = 1;
     pos2 = fPoints.at(idx2);
-    dist2 = (pos2-pos).Mag();
+    //dist2 = (pos2-pos).Mag();
   }
 
   if (idx1==numPoints-1) {
     idx2 = numPoints-2;
     pos2 = fPoints.at(idx2);
-    dist2 = (pos2-pos).Mag();
+    //dist2 = (pos2-pos).Mag();
   }
 
   auto poca = KBGeoLine(pos1,pos2).ClosestPointOnLine(pos);

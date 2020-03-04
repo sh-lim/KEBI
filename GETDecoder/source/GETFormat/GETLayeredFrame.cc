@@ -23,7 +23,7 @@ void GETLayeredFrame::Read(ifstream &stream) {
 
   GETLayerHeader::Read(stream);
 
-  for (Int_t iFrame = 0; iFrame < GetNItems(); iFrame++) {
+  for (UInt_t iFrame = 0; iFrame < GetNItems(); iFrame++) {
     GETBasicFrame *frame = (GETBasicFrame *) fFrames -> ConstructedAt(iFrame);
     frame -> Read(stream);
   }
